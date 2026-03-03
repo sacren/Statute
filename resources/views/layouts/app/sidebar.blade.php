@@ -16,6 +16,47 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
                 </flux:sidebar.group>
+
+                @if(auth()->user()->isAdmin())
+                    <flux:sidebar.group :heading="__('Admin')" class="grid">
+                        <flux:sidebar.item icon="academic-cap" :href="route('attendance.admin.classes')" :current="request()->routeIs('attendance.admin.classes', 'attendance.admin.class-detail')" wire:navigate>
+                            {{ __('Manage Classes') }}
+                        </flux:sidebar.item>
+                        <flux:sidebar.item icon="users" :href="route('attendance.admin.users')" :current="request()->routeIs('attendance.admin.users')" wire:navigate>
+                            {{ __('Manage Users') }}
+                        </flux:sidebar.item>
+                        <flux:sidebar.item icon="chart-bar" :href="route('attendance.admin.reports')" :current="request()->routeIs('attendance.admin.reports')" wire:navigate>
+                            {{ __('Reports') }}
+                        </flux:sidebar.item>
+                        <flux:sidebar.item icon="bell-alert" :href="route('attendance.admin.alerts')" :current="request()->routeIs('attendance.admin.alerts')" wire:navigate>
+                            {{ __('Alerts') }}
+                        </flux:sidebar.item>
+                    </flux:sidebar.group>
+                @endif
+
+                @if(auth()->user()->isTeacher())
+                    <flux:sidebar.group :heading="__('Teaching')" class="grid">
+                        <flux:sidebar.item icon="book-open" :href="route('attendance.my-classes')" :current="request()->routeIs('attendance.my-classes', 'attendance.roll-call', 'attendance.class-report')" wire:navigate>
+                            {{ __('My Classes') }}
+                        </flux:sidebar.item>
+                    </flux:sidebar.group>
+                @endif
+
+                @if(auth()->user()->isStudent())
+                    <flux:sidebar.group :heading="__('My Attendance')" class="grid">
+                        <flux:sidebar.item icon="calendar-days" :href="route('attendance.my-attendance')" :current="request()->routeIs('attendance.my-attendance')" wire:navigate>
+                            {{ __('My Attendance') }}
+                        </flux:sidebar.item>
+                    </flux:sidebar.group>
+                @endif
+
+                @if(auth()->user()->isParent())
+                    <flux:sidebar.group :heading="__('My Children')" class="grid">
+                        <flux:sidebar.item icon="user-group" :href="route('attendance.my-children')" :current="request()->routeIs('attendance.my-children', 'attendance.child-attendance')" wire:navigate>
+                            {{ __('My Children') }}
+                        </flux:sidebar.item>
+                    </flux:sidebar.group>
+                @endif
             </flux:sidebar.nav>
 
             <flux:spacer />
