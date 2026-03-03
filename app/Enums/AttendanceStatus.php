@@ -9,6 +9,16 @@ enum AttendanceStatus: string
     case Late = 'late';
     case Excused = 'excused';
 
+    public function label(): string
+    {
+        return match ($this) {
+            AttendanceStatus::Present => 'Present',
+            AttendanceStatus::Absent => 'Absent',
+            AttendanceStatus::Late => 'Late',
+            AttendanceStatus::Excused => 'Excused',
+        };
+    }
+
     public function countsAsPresent(): bool
     {
         return match ($this) {
